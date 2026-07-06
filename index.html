@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タプリ｜書かない、タップだけのAI日記</title>
+<meta name="description" content="日記が続かない人へ。書かずにタップだけで1日を記録し、AIが日記にまとめます。データは端末内だけ・広告なし。">
+<link rel="icon" href="icon.png">
+<style>
+  :root{ --pri:#6c5ce7; --pri2:#a99bf6; --amber:#ffb84d; --ink:#2d3436; --muted:#7a7690; --bg:#faf9ff; }
+  *{ margin:0; box-sizing:border-box; }
+  body{ font-family:"Hiragino Maru Gothic ProN","M PLUS Rounded 1c","Hiragino Sans","Yu Gothic UI",sans-serif; color:var(--ink); background:#fff; line-height:1.7; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 20px; }
+  .btn{ display:inline-flex; align-items:center; gap:8px; font-weight:800; border-radius:999px; padding:15px 26px; font-size:1.02rem; text-decoration:none; border:2px solid transparent; cursor:pointer; }
+  .btn-primary{ background:#fff; color:var(--pri); }
+  .btn-ghost{ background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.5); }
+  .btn-ghost.disabled{ opacity:.6; }
+
+  /* Hero */
+  .hero{ background:linear-gradient(160deg,#6a5cf0 0%,#8b7cf2 55%,#a99bf6 100%); color:#fff; padding:64px 0 90px; border-radius:0 0 40px 40px; }
+  .hero-grid{ display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
+  .hero-copy{ flex:1; min-width:280px; }
+  .pill{ display:inline-block; background:rgba(255,255,255,.16); border:1.5px solid rgba(255,255,255,.4); border-radius:999px; padding:7px 16px; font-size:.85rem; font-weight:700; margin-bottom:18px; }
+  .brand{ display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+  .brand img{ width:64px; height:64px; border-radius:16px; box-shadow:0 8px 24px rgba(30,20,80,.3); }
+  .brand h1{ font-size:2.6rem; letter-spacing:.04em; }
+  .tagline{ font-size:1.7rem; font-weight:800; line-height:1.35; margin:12px 0 8px; }
+  .lead{ font-size:1.05rem; color:rgba(255,255,255,.92); margin-bottom:26px; }
+  .cta{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+  .trust{ display:flex; gap:8px; flex-wrap:wrap; font-size:.85rem; }
+  .trust span{ background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:6px 12px; }
+  .hero-shot{ flex:0 0 auto; width:270px; margin:0 auto; }
+  .phone{ background:#fff; border-radius:34px; padding:12px; box-shadow:0 30px 70px rgba(20,12,60,.4); }
+  .phone img{ display:block; width:100%; border-radius:24px; }
+
+  /* Sections */
+  section{ padding:66px 0; }
+  .eyebrow{ color:var(--pri); font-weight:800; letter-spacing:.08em; font-size:.85rem; text-align:center; }
+  h2{ font-size:1.9rem; text-align:center; margin:8px 0 8px; }
+  .sec-lead{ text-align:center; color:var(--muted); max-width:640px; margin:0 auto 40px; }
+
+  .empathy{ background:var(--bg); }
+  .empathy .q{ font-size:1.5rem; font-weight:800; text-align:center; line-height:1.6; }
+  .empathy .a{ text-align:center; color:var(--muted); margin-top:14px; font-size:1.05rem; }
+
+  .features{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .feat{ background:#fff; border:1.5px solid #eee7fb; border-radius:18px; padding:24px; }
+  .feat .ic{ font-size:2rem; }
+  .feat h3{ font-size:1.15rem; margin:10px 0 6px; }
+  .feat p{ color:var(--muted); font-size:.95rem; }
+
+  .privacy{ background:linear-gradient(135deg,#f2effc,#faf7ff); }
+  .pcards{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .pcard{ background:#fff; border-radius:18px; padding:26px; box-shadow:0 8px 30px rgba(90,70,160,.08); }
+  .pcard .ic{ font-size:1.8rem; }
+  .pcard h3{ margin:8px 0 6px; }
+  .pcard p{ color:var(--muted); font-size:.95rem; }
+
+  .gallery{ display:flex; gap:16px; overflow-x:auto; padding:8px 4px 16px; scroll-snap-type:x mandatory; }
+  .gallery img{ width:280px; flex:0 0 auto; border-radius:20px; box-shadow:0 12px 34px rgba(40,25,90,.16); scroll-snap-align:center; }
+
+  .finalcta{ background:linear-gradient(160deg,#6a5cf0,#a99bf6); color:#fff; text-align:center; border-radius:32px; padding:56px 24px; margin:0 20px; }
+  .finalcta h2{ color:#fff; }
+  .finalcta .cta{ justify-content:center; margin-top:22px; }
+
+  footer{ text-align:center; color:var(--muted); font-size:.85rem; padding:40px 20px 60px; }
+  footer a{ color:var(--pri); }
+
+  @media(max-width:720px){
+    .features,.pcards{ grid-template-columns:1fr; }
+    .brand h1{ font-size:2.1rem; } .tagline{ font-size:1.4rem; }
+    .hero{ padding:44px 0 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ▼ ヒーロー -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="pill">タップで続く、AI日記</div>
+      <div class="brand"><img src="icon.png" alt="タプリ"><h1>タプリ</h1></div>
+      <div class="tagline">書かない。タップだけ。</div>
+      <p class="lead">日記が三日坊主だったあなたへ。文字を書かずに、タップだけで1日が残る。AIがその日の日記にまとめてくれます。</p>
+      <div class="cta">
+        <!-- ↓ ブラウザ版を公開したらURLを差し替え -->
+        <a class="btn btn-primary" href="https://funnnnu.github.io/tapli/">▶ ブラウザで試す</a>
+        <span class="btn btn-ghost disabled">🤖 Google Play（準備中）</span>
+      </div>
+      <div class="trust"><span>🔒 データは端末内だけ</span><span>🚫 広告・トラッキングなし</span><span>🔑 AIは自分のAPIキー</span></div>
+    </div>
+    <div class="hero-shot"><div class="phone"><img src="hero.png" alt="タプリの記録画面"></div></div>
+  </div>
+</header>
+
+<!-- ▼ 共感 -->
+<section class="empathy">
+  <div class="wrap">
+    <p class="q">「今日こそ書こう」と思っても、三日で止まる。</p>
+    <p class="a">続かないのは、意志が弱いからじゃない。“書く”のがしんどいだけ。<br>タプリは、書かない日記です。</p>
+  </div>
+</section>
+
+<!-- ▼ 機能 -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">FEATURES</div>
+    <h2>タップだけで、ちゃんと続く</h2>
+    <p class="sec-lead">気分・睡眠・お金・行動…ぜんぶボタン。1項目ずつ進むから、迷わず数十秒。</p>
+    <div class="features">
+      <div class="feat"><div class="ic">👆</div><h3>書かない。タップだけ。</h3><p>文字入力ゼロ。気分や行動をタップするだけで、今日の記録が残せます。</p></div>
+      <div class="feat"><div class="ic">🤖</div><h3>AIが日記にしてくれる</h3><p>タップした記録から、AIがその日の日記とひとことを生成。書けない日も言葉が残る。（任意）</p></div>
+      <div class="feat"><div class="ic">📊</div><h3>続くほど、自分が見えてくる</h3><p>気分の推移や「何をした日は機嫌がいいか」の相関がひと目で。</p></div>
+      <div class="feat"><div class="ic">🔥</div><h3>続けたくなる仕組み</h3><p>連続記録・レベル・節目のお祝い。うっかり抜けても守る「フリーズ」つき。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ▼ プライバシー -->
+<section class="privacy">
+  <div class="wrap">
+    <div class="eyebrow">PRIVACY FIRST</div>
+    <h2>あなたの記録は、あなたのもの</h2>
+    <p class="sec-lead">日記はいちばん見られたくないもの。だから、外に出しません。</p>
+    <div class="pcards">
+      <div class="pcard"><div class="ic">🔒</div><h3>データは端末内だけ</h3><p>記録はすべてあなたの端末の中に保存。私たちのサーバーには送りません。広告なし・トラッキングなし・アカウント登録なし。</p></div>
+      <div class="pcard"><div class="ic">🔑</div><h3>AIは自分のAPIキー</h3><p>AI日記はあなた自身のAPIキー経由。外部にデータを集められる心配なく、自己管理の範囲で安心して使えます。使うかどうかも自由。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ▼ スクショ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">SCREENS</div>
+    <h2>画面を見てみる</h2>
+    <p class="sec-lead">← 横にスクロール →</p>
+    <div class="gallery">
+      <img src="g1.png" alt="タップ入力"><img src="g2.png" alt="AI日記"><img src="g3.png" alt="統計"><img src="g4.png" alt="TODO">
+    </div>
+  </div>
+</section>
+
+<!-- ▼ 最後のCTA -->
+<section>
+  <div class="finalcta">
+    <div class="eyebrow" style="color:rgba(255,255,255,.9)">START TODAY</div>
+    <h2>今日はタップひとつ。それで十分。</h2>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://funnnnu.github.io/tapli/">▶ ブラウザで試す</a>
+      <span class="btn btn-ghost disabled">🤖 Google Play（準備中）</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  タプリ（Tapli）｜タップで続くAI日記<br>
+  <a href="https://funnnnu.github.io/taploger-privacy/privacy-policy.html">プライバシーポリシー</a> ・ <a href="mailto:taploger00@gmail.com">お問い合わせ</a><br>
+  © 2026 タプリ
+</footer>
+
+</body>
+</html>
